@@ -1,7 +1,7 @@
 export const parseList = (list: string[]) => {
   const newList = [];
-  for (let item in list) {
-    newList.push(item.trim());
+  for (let i in list) {
+    newList.push(list[i].trim());
   }
-  return list;
+  return newList;
 };

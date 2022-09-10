@@ -1,26 +1,26 @@
 import { useState } from "react";
 import { buildList } from "../helpers/buildList";
-import { parseList } from "../helpers/parseList";
 import TextInput from "./TextInput";
 
 function Main() {
   const [name, setName] = useState<string>("");
-  const [attributes, setAttributes] = useState<string[]>([]);
+  const [attributes, setAttributes] = useState<string>("");
+  const [result, setResult] = useState<string[]>([]);
 
   const handleNameChange = (newName: string) => {
     setName(newName);
   };
 
   const handleAttributesChange = (newAttributes: string) => {
+    setAttributes(newAttributes);
     const attributeList = buildList(newAttributes);
-    setAttributes(attributeList);
+    setResult(attributeList);
   };
-
-  const resultAttributeList = parseList(attributes);
 
   const handleClean = () => {
     setName("");
-    setAttributes([]);
+    setAttributes("");
+    setResult([]);
   };
 
   return (
@@ -56,17 +56,16 @@ function Main() {
         <div className="rounded block p-2.5 w-full bg-white text-gray-700 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 overflow-y-auto">
           <>
             {name ? <p>class {name}:</p> : <p></p>}
-            {resultAttributeList.length > 0 ? (
+            {result.length > 0 ? (
               <p>
-                {"\u00a0".repeat(3)} def __init__(self,{" "}
-                {resultAttributeList.join(", ")}
+                {"\u00a0".repeat(3)} def __init__(self, {result.join(", ")}
                 ):
               </p>
             ) : (
               <p></p>
             )}
-            {resultAttributeList.length > 0 ? (
-              resultAttributeList.map((a) => (
+            {result.length > 0 ? (
+              result.map((a) => (
                 <span key={a}>
                   {"\u00a0".repeat(7)} self.__{a} = {a}
                   <br />
@@ -76,8 +75,8 @@ function Main() {
               <p></p>
             )}
             <br />
-            {resultAttributeList.length > 0 ? (
-              resultAttributeList.map((a) => (
+            {result.length > 0 ? (
+              result.map((a) => (
                 <p key={a}>
                   {"\u00a0".repeat(3)} @property
                   <br />
@@ -91,13 +90,12 @@ function Main() {
             ) : (
               <p></p>
             )}
-            {resultAttributeList.length > 0 ? (
+            {result.length > 0 ? (
               <p>
                 {"\u00a0".repeat(3)} def __str__(self):
                 <br />
                 {"\u00a0".repeat(7)} return{" "}
-                {`f'{self.
-                    ${resultAttributeList.join("} {self.")}}'`}
+                {`f'{self.${result.join("} {self.")}}'`}
                 <br />
                 <br />
               </p>
