@@ -33,7 +33,7 @@ function Main() {
           labelDescription="Enter the class name:"
           inputTextValue={name}
           onTextChange={handleNameChange}
-          placeholder="Exemple: People"
+          placeholder="Exemple: Person"
         />
         <TextInput
           id="attributes"
